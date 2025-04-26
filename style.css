@@ -1,0 +1,108 @@
+/* ===== SMOOTH SCROLLING ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* CSS Variables */
+:root {
+  --accent1: #FF61E1;
+  --accent2: #FFB400;
+  --accent3: #00C2FF;
+}
+
+/* Base Body Font */
+body {
+  font-family: 'Rubik', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Heading Fonts */
+h1, h2, h3, h4 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Nav Link Hover Effect */
+.nav-link {
+  color: #4B5563; /* Default text-gray-600 */
+  transition: color .3s ease-in-out;
+}
+.nav-link:hover {
+  color: var(--accent1);
+}
+
+/* Button Pop Effect */
+.btn-pop {
+  transition: transform .2s ease-out, background-color .3s ease-in-out;
+}
+.btn-pop:hover {
+  transform: scale(1.05);
+}
+
+/* Sticky Header Blur on Scroll */
+header {
+  background: white;
+  transition: background-color .3s ease-in-out, backdrop-filter .3s ease-in-out;
+}
+header.scrolled {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+/* Blob Animations */
+.blob {
+  fill: currentColor;
+  opacity: 0.2;
+  transition: transform .3s ease-in-out, opacity .3s ease-in-out, color .3s ease-in-out;
+  pointer-events: none;
+}
+#hero .blob { color: var(--accent1); }
+#projects .blob { color: var(--accent2); }
+
+/* Floating Blob */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+.animate-blob {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Fade Animations */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-down {
+  animation: fadeInDown .8s ease-out forwards;
+}
+.animate-fade-in-up {
+  animation: fadeInUp .8s ease-out .2s forwards;
+  opacity: 0; /* Start hidden for animation */
+}
+
+/* Section Scroll Margin */
+section[id] {
+  scroll-margin-top: 140px; /* Adjust based on sticky header height */
+  overflow: hidden; /* Helps contain absolutely positioned elements like blobs */
+  position: relative; /* Needed for z-index and absolute positioning of blobs */
+}
+
+/* Profile Picture Hover Effects */
+#profile-picture {
+  /* CORRECTED: Only transition the 'transform' property */
+  transition: transform 0.8s ease;
+  position: relative; /* Needed for z-index */
+  z-index: 10;
+  cursor: pointer;
+  transform-style: preserve-3d; /* Enable 3D transforms */
+  perspective: 1000px; /* Define perspective for 3D effect */
+}
+
+/* Class added during hover for potentially faster transitions during mousemove */
+#profile-picture.hovering {
+  transition: transform 0.2s ease; /* Faster transition for responsive tilting */
+}
