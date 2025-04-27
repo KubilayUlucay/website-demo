@@ -247,10 +247,17 @@ document.addEventListener("DOMContentLoaded", () => {
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
 
-          // Calculate tilt angles based on mouse position relative to the center
-          const rotateX = ((centerY - y) / centerY) * 30; // Tilt up/down (inverted)
-          const rotateY = ((x - centerX) / centerX) * 30;  // Tilt left/right
+          // Calculate normalized positions, clamping between -1 and 1
+          let normalizedX = (x - centerX) / centerX;
+          let normalizedY = (y - centerY) / centerY;
+          normalizedX = Math.max(-1, Math.min(1, normalizedX)); // Clamp between -1 and 1
+          normalizedY = Math.max(-1, Math.min(1, normalizedY)); // Clamp between -1 and 1
 
+          // Calculate rotation angles using clamped values
+          const rotateX = -normalizedY * 30; // Simplified and using clamped value
+          const rotateY = normalizedX * 30;  // Simplified and using clamped value
+
+   
           // Apply the scale and calculated tilt.
           // The faster 0.2s transition from .hovering class makes this responsive.
           profilePic.style.transform = `scale(1.5) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
